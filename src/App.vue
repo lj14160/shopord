@@ -1,41 +1,41 @@
 <template>
   <div id="app">
-    <mt-header title="外卖平台">
+    <mt-header title="外卖平台" :fixed='true'>
       <router-link to="/" slot="left">
         <mt-button icon="back">返回</mt-button>
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
-    <router-view></router-view>
-    <mt-tabbar v-model="selected">
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <mt-tabbar v-model="selected" :fixed='true'>
       <mt-tab-item id="home">
-        <img slot="icon" src="./assets/tu1.jpg" />
-        外卖
+        <i class='iconfont icon-dingdan'></i>
       </mt-tab-item>
       <mt-tab-item id="order">
-        <img slot="icon" src="./assets/tu1.jpg" />
-        订单
+        <i class='iconfont icon-huiyuan'></i>
       </mt-tab-item>
       <mt-tab-item id="shopcar">
-        <img slot="icon" src="./assets/tu1.jpg" />
-        发现
+        <i class='iconfont icon-icon-test1'></i>
+        <mt-badge size="small" color="#f00" class="carBall" v-show="num">{{num}}</mt-badge>
       </mt-tab-item>
       <mt-tab-item id="search">
-        <img slot="icon" src="./assets/tu1.jpg" />
-        我的
+        <i class='iconfont icon-icon-test2'></i>
       </mt-tab-item>
     </mt-tabbar>
   </div>
 </template>
 <script>
 export default {
+ beforeRouterUpdate(){
+   this.selected=this.$route.params(name)
+ },
   data(){
     return {
-      selected:'home'
+      selected:'',
+      num:0
     }
-  },
-  methods:{
-
   },
   watch:{
     selected:function(newV){
@@ -46,4 +46,12 @@ export default {
 </script>
 
 <style lang="less" scope>
+.mint-tab-item .iconfont{
+  font-size:35px;
+}
+.carBall{
+  position: relative;
+  top: -20px;
+  z-index: 10;
+}
 </style>
